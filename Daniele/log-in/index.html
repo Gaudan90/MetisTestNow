@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - ScanSelmi</title>
+    <link rel="stylesheet" href="styles\style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <img
+          class="header-img"
+          src="https://www.selmi-group.it/img/logo-selmi-social.png"
+          alt="App Logo"
+        />
+        <h1 class="title">Sign in to <span class="brand">ScanSelmi</span></h1>
+      </div>
+      <div class="form">
+        <div class="input-group">
+          <label for="email">Email address</label>
+          <input id="email" type="email" placeholder="john@example.com" />
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="********" />
+        </div>
+        <input type="checkbox" name="vehicle1" value="Bike" />
+        <label for="vehicle1"> i'm an admin</label>
+        <br /><br />
+        <button class="btn" onclick="handleSignIn()">Sign in</button>
+        <p class="forgot-password">
+          <a href="forgotPassword/forgotPassword.html">Forgot password?</a>
+        </p>
+      </div>
+    </div>
+    <script src="script\main.js"></script>
+  </body>
+</html>
