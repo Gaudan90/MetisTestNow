@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!startY) return;
         currentY = e.touches[0].clientY;
         let deltaY = startY - currentY;
-        
+
         if (isFooterDragging) {
             e.preventDefault();
             if (machineList.classList.contains('active')) {
