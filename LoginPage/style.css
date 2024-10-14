@@ -1,0 +1,87 @@
+body {
+  background-color: #304a78;
+  background-image: url("../assets/sfondo_log_in.jpg"); /* Percorso dell'immagine */
+  background-size: cover; /* Fa in modo che l'immagine copra l'intero sfondo */
+  background-position: center; /* Centra l'immagine */
+  background-repeat: no-repeat; /* Evita che si ripeta */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: #fff;
+  padding: 40px;
+  align-items: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.header-img {
+  width: 80px;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 16px;
+}
+
+.brand {
+  color: #304a78;
+}
+
+.form {
+  margin-bottom: 24px;
+}
+
+.input-group {
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.input-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #c9d3db;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #000000;
+}
+
+.btn {
+  background-color: #304a78;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.btn:hover {
+  background-color: #1d3a5a;
+}
+
+.forgot-password {
+  color: #304a78;
+  font-weight: 600;
+  margin-top: 16px;
+  cursor: pointer;
+}
