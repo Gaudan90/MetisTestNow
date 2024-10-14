@@ -343,19 +343,3 @@ footer {
       font-size: 14px;
   }
 }
-
-#torch-button {
-  position: fixed;
-  bottom: 100px; 
-  right: 20px;
-  z-index: 1002;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-#torch-icon {
-  width: 40px; 
-  height: 40px;
-}
