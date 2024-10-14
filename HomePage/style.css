@@ -83,16 +83,25 @@ header {
   color: #ffffff;
 }
 
+#app-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#qr-reader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
 main {
-  flex-grow: 1;
-  padding: 2rem;
-  text-align: center;
-  margin-top: 60px;
-  overflow-y: auto;
-  height: calc(100vh - 120px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative;
+  z-index: 2;
   background: transparent;
   pointer-events: none;
 }

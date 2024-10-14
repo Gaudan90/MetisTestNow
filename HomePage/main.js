@@ -36,57 +36,55 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function handleTouchMove(e) {
-        if (!startY) return;
+        if (!startY || !isFooterDragging) return;
         currentY = e.touches[0].clientY;
         let deltaY = startY - currentY;
         
-        if (isFooterDragging) {
-            e.preventDefault();
-            let newTransform = Math.max(-window.innerHeight + 60, Math.min(0, -deltaY));
-            footer.style.transform = `translateY(${newTransform}px)`;
-            machineList.style.transform = `translateY(${newTransform}px)`;
-        }
+        e.preventDefault();
+        let newTransform = Math.max(-window.innerHeight + 60, Math.min(0, -deltaY));
+        footer.style.transform = `translateY(${newTransform}px)`;
+        machineList.style.transform = `translateY(${-newTransform}px)`;
     }
 
     function handleTouchEnd() {
-        if (!startY || !currentY) return;
+        if (!startY || !currentY || !isFooterDragging) return;
         let deltaY = startY - currentY;
         
-        if (isFooterDragging) {
-            if (Math.abs(deltaY) > 50) {
-                if (deltaY > 0) {
-                    // Dragged up more than 50px, open the machine list
-                    footer.style.transform = 'translateY(calc(-100% + 60px))';
-                    machineList.style.transform = 'translateY(0)';
-                    machineList.classList.add('active');
-                } else {
-                    // Dragged down more than 50px, close the machine list
-                    resetFooterAndMachineList();
-                }
+        if (Math.abs(deltaY) > 50) {
+            if (deltaY > 0) {
+                openMachineList();
             } else {
-                // Not dragged enough, return to previous state
-                if (machineList.classList.contains('active')) {
-                    footer.style.transform = 'translateY(calc(-100% + 60px))';
-                    machineList.style.transform = 'translateY(0)';
-                } else {
-                    resetFooterAndMachineList();
-                }
+                closeMachineList();
             }
+        } else {
+            resetFooterAndMachineList();
         }
         
         resetDragState();
+    }
+
+    function openMachineList() {
+        footer.style.transform = 'translateY(calc(-100% + 60px))';
+        machineList.style.transform = 'translateY(0)';
+        machineListOverlay.style.display = 'block';
+        machineList.classList.add('active');
+    }
+
+    function closeMachineList() {
+        resetFooterAndMachineList();
+    }
+
+    function resetFooterAndMachineList() {
+        footer.style.transform = 'translateY(0)';
+        machineList.style.transform = 'translateY(100%)';
+        machineListOverlay.style.display = 'none';
+        machineList.classList.remove('active');
     }
 
     function resetDragState() {
         isFooterDragging = false;
         startY = null;
         currentY = null;
-    }
-
-    function resetFooterAndMachineList() {
-        machineList.classList.remove('active');
-        footer.style.transform = 'translateY(0)';
-        machineList.style.transform = 'translateY(100%)';
     }
 
     function handleResize() {
@@ -168,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
     footer.addEventListener('touchstart', handleTouchStart);
     footer.addEventListener('touchmove', handleTouchMove);
     footer.addEventListener('touchend', handleTouchEnd);
-    machineListOverlay.addEventListener('click', resetFooterAndMachineList);
+    machineListOverlay.addEventListener('click', closeMachineList);
 
     initQRScanner();
 });

@@ -8,6 +8,7 @@
 </head>
 <body>
     <div id="app-container">
+        <div id="qr-reader"></div>
         <button id="menu-toggle" class="arrow-right"></button>
 
         <nav id="sidebar">
@@ -19,19 +20,13 @@
             </ul>
         </nav>
 
-        <main>
+        <main role="main">
             <div id="qr-reader"></div>
         </main>
 
         <footer>
             <div id="footer-content">Drag for more information</div>
         </footer>
-
-        <div id="popup">
-            <div id="loading-bar"></div>
-            <p>Download completed</p>
-        </div>
-    </div>
 
     <div id="machine-list-overlay">
         <div id="machine-list">
@@ -53,6 +48,12 @@
             </a>
         </div>
     </div>
+
+    <div id="popup">
+        <div id="loading-bar"></div>
+        <p>Download completed</p>
+    </div>
+</div>
     
    <!--End of body--> 
 
