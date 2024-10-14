@@ -102,6 +102,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function onScanSuccess(decodedText, decodedResult) {
         console.log(`Code matched = ${decodedText}`, decodedResult);
         showLoadingAnimation();
+        
+        // Add a delay to show the loading animation before redirecting
+        setTimeout(() => {
+            // Redirect to index.html
+            window.location.href = '../MachinePageLegend/index.html';
+        }, 2000); // 2 second delay
     }
 
     function onScanFailure(error) {
@@ -115,12 +121,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (width >= 100) {
                 clearInterval(interval);
                 loadingBar.style.width = '100%';
-                popup.querySelector('p').textContent = 'Download completed';
-                setTimeout(() => {
-                    popup.style.display = 'none';
-                    loadingBar.style.width = '0%';
-                }, 2000);
-            } else {
+                popup.querySelector('p').textContent = 'Redirecting...';
+                } else {
                 width += 10;
                 loadingBar.style.width = width + '%';
             }
