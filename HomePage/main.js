@@ -1,10 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const main = document.querySelector('main');
     const footer = document.querySelector('footer');
+    const popup = document.getElementById('popup');
+    const loadingBar = document.getElementById('loading-bar');
     const machineListOverlay = document.getElementById('machine-list-overlay');
     const machineList = document.getElementById('machine-list');
 
     let startY, currentY;
     let isFooterDragging = false;
+
+    function toggleSidebar() {
+        sidebar.classList.toggle('active');
+        menuToggle.classList.toggle('arrow-left');
+        menuToggle.classList.toggle('arrow-right');
+        if (sidebar.classList.contains('active')) {
+            menuToggle.style.left = '200px';
+        } else {
+            menuToggle.style.left = '0';
+        }
+    }
+
+    function resetView() {
+        sidebar.classList.remove('active');
+        menuToggle.classList.remove('arrow-left');
+        menuToggle.classList.add('arrow-right');
+        menuToggle.style.left = '0';
+        resetFooterAndMachineList();
+    }
 
     function handleTouchStart(e) {
         startY = e.touches[0].clientY;
@@ -63,6 +87,39 @@ document.addEventListener('DOMContentLoaded', function() {
         currentY = null;
     }
 
+    function handleResize() {
+        resetFooterAndMachineList();
+        adjustQRScannerSize();
+    }
+
+    function onScanSuccess(decodedText, decodedResult) {
+        console.log(`Code matched = ${decodedText}`, decodedResult);
+        showLoadingAnimation();
+    }
+
+    function onScanFailure(error) {
+        console.warn(`Code scan error = ${error}`);
+    }
+
+    function showLoadingAnimation() {
+        popup.style.display = 'block';
+        let width = 0;
+        const interval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(interval);
+                loadingBar.style.width = '100%';
+                popup.querySelector('p').textContent = 'Download completed';
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                    loadingBar.style.width = '0%';
+                }, 2000);
+            } else {
+                width += 10;
+                loadingBar.style.width = width + '%';
+            }
+        }, 100);
+    }
+
     function initQRScanner() {
         const html5QrCode = new Html5Qrcode("qr-reader");
         const config = {
@@ -89,12 +146,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert("Error starting QR scanner. Please check console for details.");
             }
         });
+
+        adjustQRScannerSize();
     }
 
+    function adjustQRScannerSize() {
+        const scannerContainer = document.getElementById('qr-scanner-container');
+        scannerContainer.style.width = '100vw';
+        scannerContainer.style.height = '100vh';
+        scannerContainer.style.position = 'fixed';
+        scannerContainer.style.top = '0';
+        scannerContainer.style.left = '0';
+        scannerContainer.style.zIndex = '1000';
+    }
+
+    window.addEventListener('resize', handleResize);
+    menuToggle.addEventListener('click', toggleSidebar);
+    document.querySelector('.home-link').addEventListener('click', resetView);
     footer.addEventListener('touchstart', handleTouchStart);
     footer.addEventListener('touchmove', handleTouchMove);
     footer.addEventListener('touchend', handleTouchEnd);
     machineListOverlay.addEventListener('click', closeMachineList);
-
+    
     initQRScanner();
 });
