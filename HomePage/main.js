@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const footer = document.querySelector('footer');
     const popup = document.getElementById('popup');
     const loadingBar = document.getElementById('loading-bar');
+    const machineListOverlay = document.getElementById('machine-list-overlay');
     const machineList = document.getElementById('machine-list');
 
     let startY, currentY;
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleTouchStart(e) {
         startY = e.touches[0].clientY;
-        isFooterDragging = e.target === footer || footer.contains(e.target) || machineList.contains(e.target);
+        isFooterDragging = e.target === footer || footer.contains(e.target);
     }
 
     function handleTouchMove(e) {
@@ -43,14 +44,12 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             if (machineList.classList.contains('active')) {
                 // If machine list is open, allow dragging down to close
-                let newTransform = Math.max(0, Math.min(window.innerHeight - 60, deltaY));
-                footer.style.transform = `translateY(calc(-100% + 60px + ${newTransform}px))`;
-                machineList.style.transform = `translateY(${newTransform}px)`;
+                let newTransform = Math.max(0, Math.min(window.innerHeight * 0.8, deltaY));
+                machineList.style.transform = `translateY(${window.innerHeight * 0.8 - newTransform}px)`;
             } else {
                 // If machine list is closed, allow dragging up to open
-                let newTransform = Math.max(-window.innerHeight + 60, Math.min(0, -deltaY));
-                footer.style.transform = `translateY(${newTransform}px)`;
-                machineList.style.transform = `translateY(${newTransform}px)`;
+                let newTransform = Math.max(-window.innerHeight * 0.8, Math.min(0, -deltaY));
+                machineList.style.transform = `translateY(${window.innerHeight - newTransform}px)`;
             }
         }
     }
@@ -67,16 +66,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     resetFooterAndMachineList();
                 } else {
                     // Not dragged down enough, keep it open
-                    footer.style.transform = 'translateY(calc(-100% + 60px))';
                     machineList.style.transform = 'translateY(0)';
                 }
             } else {
                 // If machine list is closed
                 if (deltaY > 50) {
                     // Dragged up more than 50px, open the machine list
-                    footer.style.transform = 'translateY(calc(-100% + 60px))';
-                    machineList.style.transform = 'translateY(0)';
-                    machineList.classList.add('active');
+                    openMachineList();
                 } else {
                     // Not dragged up enough, keep it closed
                     resetFooterAndMachineList();
@@ -91,6 +87,12 @@ document.addEventListener('DOMContentLoaded', function() {
         isFooterDragging = false;
         startY = null;
         currentY = null;
+    }
+
+    function openMachineList() {
+        machineListOverlay.style.display = 'block';
+        machineList.classList.add('active');
+        machineList.style.transform = 'translateY(0)';
     }
 
     function resetFooterAndMachineList() {
@@ -133,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function initQRScanner() {
-        const html5QrCode = new Html5Qrcode("qr-scanner-container");
+        const html5QrCode = new Html5Qrcode("qr-reader");
         const config = {
             fps: 10,
             qrbox: (viewfinderWidth, viewfinderHeight) => {
@@ -150,8 +152,13 @@ document.addEventListener('DOMContentLoaded', function() {
             config,
             onScanSuccess,
             onScanFailure
-        ).catch(err => {
+        ).catch((err) => {
             console.error("Error starting QR scanner:", err);
+            if (err.name === "NotAllowedError") {
+                alert("Camera access was denied. Please enable camera access and reload the page.");
+            } else {
+                alert("Error starting QR scanner. Please check console for details.");
+            }
         });
 
         adjustQRScannerSize();
@@ -173,9 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
     footer.addEventListener('touchstart', handleTouchStart);
     footer.addEventListener('touchmove', handleTouchMove);
     footer.addEventListener('touchend', handleTouchEnd);
-    machineList.addEventListener('touchstart', handleTouchStart);
-    machineList.addEventListener('touchmove', handleTouchMove);
-    machineList.addEventListener('touchend', handleTouchEnd);
+    machineListOverlay.addEventListener('click', resetFooterAndMachineList);
 
     initQRScanner();
 });
