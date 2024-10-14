@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!startY) return;
         currentY = e.touches[0].clientY;
         let deltaY = startY - currentY;
-
+        
         if (isFooterDragging) {
             e.preventDefault();
             if (machineList.classList.contains('active')) {
@@ -150,15 +150,8 @@ document.addEventListener('DOMContentLoaded', function() {
             config,
             onScanSuccess,
             onScanFailure
-        ).then(() => {
-            console.log("QR Code scanning has started");
-        }).catch((err) => {
+        ).catch(err => {
             console.error("Error starting QR scanner:", err);
-            if (err.name === "NotAllowedError") {
-                alert("Camera access was denied. Please enable camera access and reload the page.");
-            } else {
-                alert("Error starting QR scanner. Please check console for details.");
-            }
         });
 
         adjustQRScannerSize();
