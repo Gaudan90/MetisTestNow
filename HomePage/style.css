@@ -240,8 +240,22 @@ footer {
   }
 
   #machine-list {
-    height: calc(100% - 50px);
-  }
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    background-color: rgba(255, 255, 255, 0.9); /* Sfondo semi-trasparente */
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1002;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 20px;
+    overflow-y: auto;
+    }
 
   #machine-list.active {
     transform: translateY(0);
@@ -258,14 +272,18 @@ footer {
 }
 
 .card {
-  width: 100%;
-  height: 100px;
-  display: flex;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s;
-  background-color: white;
+  width: 90%;
+    height: auto;
+    min-height: 100px;
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+    background-color: white;
+    margin-bottom: 15px;
+    text-decoration: none;
+    color: inherit;
 }
 
 .card:hover {
@@ -273,9 +291,10 @@ footer {
 }
 
 .card img {
-  width: 150px;
-  height: 100px;
-  object-fit: cover;
+    width: 40%;
+    max-width: 150px;
+    height: auto;
+    object-fit: cover;
 }
 
 .card-content {
@@ -283,7 +302,7 @@ footer {
   padding: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .text-content {
@@ -291,44 +310,30 @@ footer {
 }
 
 .card h2 {
-  margin: 0 0 4px 0;
+  margin: 0;
   color: #333;
   font-family: Arial, sans-serif;
   font-size: 18px;
+  line-height: 1.2;
 }
 
-.card p {
-  color: #666;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.4;
-  max-height: 2.8em; /* 2 linee di testo (1.4 * 2 = 2.8) */
-  overflow: hidden;
-  position: relative;
-}
+@media (max-width: 480px) {
+  .card {
+      flex-direction: column;
+      height: auto;
+  }
 
-.card p::after {
-  content: "...";
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  padding-left: 40px;
-  background: linear-gradient(to right, transparent, white 50%);
-}
+  .card img {
+      width: 100%;
+      max-width: none;
+      height: 150px;
+  }
 
-.card a {
-  display: inline-block;
-  padding: 6px 12px;
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-  font-size: 14px;
-  align-self: flex-start;
-}
+  .card-content {
+      padding: 12px;
+  }
 
-.card a:hover {
-  background-color: #0056b3;
+  .card h2 {
+      font-size: 14px;
+  }
 }
