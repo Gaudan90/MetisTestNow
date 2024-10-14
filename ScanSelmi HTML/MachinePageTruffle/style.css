@@ -1,0 +1,116 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, white 50%, #003366 50%);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    font-size: 24px;
+    color: #003366;
+    text-decoration: none;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.logo {
+    text-align: center;
+    color: #ff0000;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.title {
+    color: #003366;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.image-container img {
+    max-width: 100%;
+    /* con auto non riesco a farlo stare negli 800 px e non capisco perché */
+    height: 450px; 
+}
+
+.info {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.model {
+    color: #f5fbff;
+    font-size: 80px;
+    margin-bottom: 5px;
+    line-height: 1;
+}
+
+.specs {
+    font-size: 14px;
+    color: #f5fbff;
+    margin: 5px 0;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.link {
+    font-size: 20px;
+    color: #f5fbff;
+    border-bottom: 1px solid #003366;
+    padding-bottom: 2px;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 360px) {
+    .container {
+        padding: 10px;
+    }
+
+    .logo {
+        font-size: 28px;
+    }
+
+    .title {
+        font-size: 18px;
+    }
+
+    .model {
+        font-weight: bold;
+        font-size: 40px;
+    }
+
+    .specs {
+        font-size: 20px;
+    }
+
+    .links {
+        flex-direction: column;
+    }
+
+    .link {
+        margin-bottom: 5px;
+    }
+}
