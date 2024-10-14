@@ -1,15 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
-    const main = document.querySelector('main');
     const footer = document.querySelector('footer');
     const popup = document.getElementById('popup');
     const loadingBar = document.getElementById('loading-bar');
     const machineListOverlay = document.getElementById('machine-list-overlay');
     const machineList = document.getElementById('machine-list');
+    const torchButton = document.getElementById('torch-button');
+    const torchIcon = document.getElementById('torch-icon');
 
     let startY, currentY;
     let isFooterDragging = false;
+    let isTorchOn = false;
+    let html5QrCode;
 
     function toggleSidebar() {
         sidebar.classList.toggle('active');
@@ -45,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
         footer.style.transform = `translateY(${newTransform}px)`;
         machineList.style.transform = `translateY(${-newTransform}px)`;
         
-        // Aggiorna l'opacità dell'overlay in base al progresso del trascinamento
         let progress = Math.abs(newTransform) / (window.innerHeight - 60);
         machineListOverlay.style.opacity = progress.toFixed(2);
         machineListOverlay.style.display = 'block';
@@ -128,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function initQRScanner() {
-        const html5QrCode = new Html5Qrcode("qr-reader");
+        html5QrCode = new Html5Qrcode("qr-reader");
         const config = {
             fps: 10,
             qrbox: (viewfinderWidth, viewfinderHeight) => {
@@ -145,7 +147,13 @@ document.addEventListener('DOMContentLoaded', function() {
             config,
             onScanSuccess,
             onScanFailure
-        ).catch((err) => {
+        ).then(() => {
+            html5QrCode.getRunningTrackCapabilities().then(capabilities => {
+                if (capabilities.torch) {
+                    torchButton.style.display = 'block';
+                }
+            });
+        }).catch((err) => {
             console.error("Error starting QR scanner:", err);
             if (err.name === "NotAllowedError") {
                 alert("Camera access was denied. Please enable camera access and reload the page.");
@@ -167,6 +175,24 @@ document.addEventListener('DOMContentLoaded', function() {
         scannerContainer.style.zIndex = '1000';
     }
 
+    function toggleTorch() {
+        if (html5QrCode) {
+            isTorchOn = !isTorchOn;
+            html5QrCode.applyVideoConstraints({
+                advanced: [{torch: isTorchOn}]
+            }).then(() => {
+                updateTorchIcon();
+            }).catch(err => {
+                console.error("Error toggling torch:", err);
+                alert("Impossibile controllare la torcia. Il tuo dispositivo potrebbe non supportare questa funzione.");
+            });
+        }
+    }
+
+    function updateTorchIcon() {
+        torchIcon.src = isTorchOn ? '../assets/flash-on.png' : '../assets/flash-off.png';
+    }
+
     window.addEventListener('resize', handleResize);
     menuToggle.addEventListener('click', toggleSidebar);
     document.querySelector('.home-link').addEventListener('click', resetView);
@@ -174,6 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('touchmove', handleTouchMove);
     document.addEventListener('touchend', handleTouchEnd);
     machineListOverlay.addEventListener('click', closeMachineList);
+    torchButton.addEventListener('click', toggleTorch);
     
     initQRScanner();
 });
