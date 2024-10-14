@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleTouchStart(e) {
         startY = e.touches[0].clientY;
-        isFooterDragging = e.target === footer || footer.contains(e.target);
+        isFooterDragging = e.target === footer || footer.contains(e.target) || machineList.contains(e.target);
     }
 
     function handleTouchMove(e) {
@@ -44,6 +44,11 @@ document.addEventListener('DOMContentLoaded', function() {
         let newTransform = Math.max(-window.innerHeight + 60, Math.min(0, -deltaY));
         footer.style.transform = `translateY(${newTransform}px)`;
         machineList.style.transform = `translateY(${-newTransform}px)`;
+        
+        // Aggiorna l'opacità dell'overlay in base al progresso del trascinamento
+        let progress = Math.abs(newTransform) / (window.innerHeight - 60);
+        machineListOverlay.style.opacity = progress.toFixed(2);
+        machineListOverlay.style.display = 'block';
     }
 
     function handleTouchEnd() {
@@ -64,9 +69,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function openMachineList() {
-        footer.style.transform = 'translateY(calc(-100% + 60px))';
+        footer.style.transform = 'translateY(calc(-100vh + 60px))';
         machineList.style.transform = 'translateY(0)';
         machineListOverlay.style.display = 'block';
+        machineListOverlay.style.opacity = '1';
         machineList.classList.add('active');
     }
 
@@ -78,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
         footer.style.transform = 'translateY(0)';
         machineList.style.transform = 'translateY(100%)';
         machineListOverlay.style.display = 'none';
+        machineListOverlay.style.opacity = '0';
         machineList.classList.remove('active');
     }
 
@@ -163,9 +170,9 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', handleResize);
     menuToggle.addEventListener('click', toggleSidebar);
     document.querySelector('.home-link').addEventListener('click', resetView);
-    footer.addEventListener('touchstart', handleTouchStart);
-    footer.addEventListener('touchmove', handleTouchMove);
-    footer.addEventListener('touchend', handleTouchEnd);
+    document.addEventListener('touchstart', handleTouchStart);
+    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('touchend', handleTouchEnd);
     machineListOverlay.addEventListener('click', closeMachineList);
     
     initQRScanner();
