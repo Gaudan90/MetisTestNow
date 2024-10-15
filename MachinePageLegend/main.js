@@ -32,38 +32,45 @@ function loadProductDetails() {
         document.getElementById('product-title').textContent = 'TEMPERATRICE PROFESSIONALE CIOCCOLATO';
         document.getElementById('product-specs').innerHTML = 'Capacità vasca: 35 kg<br>Produzione oraria: 170 kg';
         document.getElementById('pdf-link').textContent = 'Scarica la scheda tecnica PDF';
+        document.getElementById('webpage').textContent = 'Pagina Web';
         break;
     case 'EN':
         document.getElementById('product-title').textContent = 'PROFESSIONAL CHOCOLATE TEMPERING MACHINE';
         document.getElementById('product-specs').innerHTML = 'Bowl Capacity: 35 kg<br>Hourly production: 170 kg';
         document.getElementById('pdf-link').textContent = 'Download the technical sheet PDF';
+        document.getElementById('webpage').textContent = 'Web Page';
         break;
     case 'SP':
         document.getElementById('product-title').textContent = 'TEMPERADORA PROFESIONAL DE CHOCOLATE';
         document.getElementById('product-specs').innerHTML = 'Capacidad del recipiente: 35 kg<br>Producción por hora: 170 kg';
         document.getElementById('pdf-link').textContent = 'Descargar la ficha técnica PDF';
+        document.getElementById('webpage').textContent = 'Página web';
         break;
     case 'FR':
         document.getElementById('product-title').textContent = 'TEMPÉREUSE PROFESSIONNELLE À CHOCOLAT';
         document.getElementById('product-specs').innerHTML = 'Capacité de la cuve: 35 kg<br>Production horaire: 170 kg';
         document.getElementById('pdf-link').textContent = 'Télécharger la fiche technique PDF';
+        document.getElementById('webpage').textContent = 'Page web';
         break;
     case 'CN':
         document.getElementById('product-title').textContent = '专业巧克力调温机';
         document.getElementById('product-specs').innerHTML = '碗容量：35公斤<br>每小时产量：170公斤';
         document.getElementById('pdf-link').textContent = '下载技术规格PDF';
+        document.getElementById('webpage').textContent = '網頁';
         break;
     case 'RU':
         document.getElementById('product-title').textContent = 'ПРОФЕССИОНАЛЬНАЯ ТЕМПЕРИРУЮЩАЯ МАШИНА ДЛЯ ШОКОЛАДА';
         document.getElementById('product-specs').innerHTML = 'Объем чаши: 35 кг<br>Почасовое производство: 170 кг';
         document.getElementById('pdf-link').textContent = 'Скачать технический паспорт PDF';
+        document.getElementById('webpage').textContent = 'веб-страница';
         break;
     default:
         // Se la lingua non è riconosciuta, usa l'inglese come predefinito
         document.getElementById('product-title').textContent = 'PROFESSIONAL CHOCOLATE TEMPERING MACHINE';
         document.getElementById('product-specs').innerHTML = 'Bowl Capacity: 35 kg<br>Hourly production: 170 kg';
         document.getElementById('pdf-link').textContent = 'Download the technical sheet PDF';
-}
+        document.getElementById('webpage').textContent = 'Web Page';
+    }
 }
 
 // Verifica se siamo nella pagina dei dettagli del prodotto
