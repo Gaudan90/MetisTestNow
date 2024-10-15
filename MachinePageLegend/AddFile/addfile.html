@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selmi - Selezione Prodotto</title>
+    <meta name="description" content="Pagina di selezione per i prodotti Selmi" />
+    <meta name="author" content="Federico La Mattina" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <button class="back-arrow" onclick="goBack()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        <div class="logo">
+            <img src="https://www.selmi-group.it/img/logo-selmi-social.png" alt="Selmi Logo">
+        </div>
+        <div class="title">TEMPERATRICE PROFESSIONALE CIOCCOLATO</div>
+        <div class="image-container">
+            <img class="imageofthemachine" src="/api/placeholder/400/300" alt="Temperatrice" />
+        </div>
+        <div class="selection-form">
+            <form id="product-selection">
+                <div class="form-group">
+                    <label for="year">Anno di Produzione</label>
+                    <select name="year" id="year" required>
+                        <option value="">Seleziona anno</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="language">Lingua</label>
+                    <select name="language" id="language" required>
+                        <option value="">Seleziona lingua</option>
+                        <option value="IT">Italiano</option>
+                        <option value="EN">Inglese</option>
+                        <option value="SP">Spagnolo</option>
+                        <option value="FR">Francese</option>
+                        <option value="CN">Cinese</option>
+                        <option value="RU">Russo</option>
+                    </select>
+                </div>
+                <div class="button-container">
+                    <button type="submit" id="submit-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"/>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                        </svg>
+                        VISUALIZZA PRODOTTO
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../main.js"></script>
+</body>
+</html>

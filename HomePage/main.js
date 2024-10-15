@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add a delay to show the loading animation before redirecting
         setTimeout(() => {
             // Redirect to index.html
-            window.location.href = '../MachinePageLegend/index.html';
+            window.location.href = '../MachinePageLegend/AddFile/addfile.html';
         }, 2000); // 2 second delay
     }
 
